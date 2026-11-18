@@ -1,26 +1,31 @@
 import java.util.Scanner;
 public class Main {
+    static int[][] grid;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[][] grid = new int[n][n];
+        grid = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 grid[i][j] = sc.nextInt();
             }
         }
         int result = 0;
-        int coin = 0;
 
         for (int i = 0; i < n - 2; i++) {
             for (int j = 0; j < n - 2; j++) {
-                coin += grid[i][j] + grid[i][j + 1] + grid[i][j + 2];
-                coin += grid[i + 1][j] + grid[i + 1][j + 1] + grid[i + 1][j + 2];
-                coin += grid[i + 2][j] + grid[i + 2][j + 1] + grid[i + 2][j + 2];
-                result = Math.max(result, coin);
-                coin = 0;
+                result = Math.max(result, mul(i, j, 3));
             }
         }
         System.out.println(result);
+    }
+    static int mul(int r, int c, int num) {
+        int coin = 0;
+        for (int i = r; i < r + num; i++) {
+            for (int j = c; j < c + num; j++) {
+                coin += grid[i][j];
+            }
+        }
+        return coin;
     }
 }
